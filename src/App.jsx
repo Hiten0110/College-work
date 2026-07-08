@@ -56,6 +56,7 @@ function App() {
   
         </Routes>
         <h2>meri taraf ka code</h2>
+        <p>Chal thik hai</p>
        <Footer/>
       </div>
     </BrowserRouter>
