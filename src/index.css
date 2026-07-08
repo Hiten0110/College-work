@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "../node_modules/aos/dist/aos.css";
+
+html {
+    scroll-behavior: smooth;
+}
