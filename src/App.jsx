@@ -55,8 +55,6 @@ function App() {
           <Route path="/Tryxyzpeople" element={<><Header1/><Loginform /></>} />
   
         </Routes>
-        <h2>meri taraf ka code</h2>
-        <p>Chal thik hai</p>
        <Footer/>
       </div>
     </BrowserRouter>
