@@ -31,6 +31,7 @@ function App() {
         {/* <div> */}
         
         {/* <Header /> */}
+        
         <TopBox/>
         <Routes>
           {/* <Route path='/conditional' element={<Conditional/>}/> */}
@@ -52,9 +53,8 @@ function App() {
           <Route path="/signin" element={<><Header1/><Signin/></>} />
           <Route path="/get-started" element={<><Header1/><Loginform /></>} />
           <Route path="/Tryxyzpeople" element={<><Header1/><Loginform /></>} />
-  
+          
         </Routes>
-        <h2>meri taraf ka code</h2>
        <Footer/>
       </div>
     </BrowserRouter>
