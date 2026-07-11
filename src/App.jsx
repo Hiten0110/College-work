@@ -27,8 +27,8 @@ import TopBox from "./components/Topbox";
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB]">
-        {/* <div> */}
+      {/* <div className="min-h-screen bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB]"> */}
+        <div>
         
         {/* <Header /> */}
         

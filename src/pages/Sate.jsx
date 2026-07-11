@@ -72,11 +72,27 @@ export default function Sate() {
 
     }
   }
-  function handleSubmit(x) {
+  const handleSubmit = async(x)=> {
     x.preventDefault()
-    console.log({ email: email, password: password })
-    localStorage.setItem("users", JSON.stringify({ email: email, password: password }))
+    // console.log({ email: email, password: password })
+    // localStorage.setItem("users", JSON.stringify({ email: email, password: password }))
+  const req = await fetch("https://reqres.in/api/login",{
+    method:"POST",
+    headers:{
+      "x-api-key": "reqres_d5f07ee8487547da86ffab50962bc7d7",
+      "content-type":"application/json"
+    },
+    body: JSON.stringify({email,password})
+
+  })
+  const data=await req.json()
+  if(data.token){
+    window.location="https://www.netlify.com"
   }
+  else{
+    console.log(data)
+  }
+}
   let data = localStorage.getItem("users")
   let json = JSON.parse(data);
   console.log(json.email)
@@ -90,6 +106,7 @@ export default function Sate() {
 
 
       <Instagram stroke='rgb(255,0,0)' />
+      <h2>"email": "eve.holt@reqres.in", "password": "cityslicka"</h2>
 
       <form onSubmit={handleSubmit}>
         Email <input className='border' type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
