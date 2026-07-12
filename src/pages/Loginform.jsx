@@ -1,10 +1,43 @@
-import { useState } from "react";
+
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 
 function Loginform() {
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("");
+   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log('Login Failed:', error),
+  });
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+          headers: {
+            Authorization: `Bearer ${user.access_token}`,
+            Accept: 'application/json',
+          },
+        })
+        .then((res) => {
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
+    setUser(null);
+  };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10">
@@ -165,14 +198,24 @@ function Loginform() {
 
           {/* Social Buttons */}
           <div className="flex justify-center gap-4">
-
-            <button
-              type="button"
-              className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
-            >
-              Google
-            </button>
-
+      {profile ? (
+        <div>
+          <img src={profile.picture} alt="userimage" />
+          <h3>User Logged in</h3>
+          <p>Name: {profile.name}</p>
+          <p>Email Address: {profile.email}</p>
+          <p>ProfileId: {profile.id}</p>
+          <button onClick={logOut}>Log out</button>
+        </div>
+      ) : (
+       <button
+    type="button"
+    onClick={() => login()}
+>
+    Sign in with Google ✅
+</button>
+      )}
+           
             <button
               type="button"
               className="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
