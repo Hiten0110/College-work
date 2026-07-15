@@ -10,9 +10,9 @@ function Hrdash() {
     <div>
      
         <Hr_sidebar/>
-        <Hr_topbar/>
+        {/* <Hr_topbar/> */}
 
-        <h2 className='text-white'>This is HR dashboard</h2>
+        {/* <h2 className='text-white'>This is HR dashboard</h2> */}
     </div>
   )
 }

@@ -22,20 +22,21 @@ import Hrdash from "./pages/HR/Hrdash";
 import Empdash from "./pages/Employee/Empdash";
 import AOS from 'aos'
 import TopBox from "./components/Topbox";
+import Dash from "./pages/HR/Dash";
 // import Conditional from "./pages/conditional";
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <div className="min-h-screen bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB]"> */}
-        <div>
+      <div className="min-h-screen bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB]">
+        {/* <div> */}
         
         {/* <Header /> */}
         
         <TopBox/>
         <Routes>
           {/* <Route path='/conditional' element={<Conditional/>}/> */}
-
+          <Route path='/dash' element={<Dash/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/hr' element={<Hrdash/>}/>
           <Route path='/employee' element={<Empdash/>}/>

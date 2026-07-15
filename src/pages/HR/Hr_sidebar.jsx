@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 
 import { Link, useLocation } from "react-router-dom";
+import Hr_topbar from "./Hr_topbar";
 
 function Hr_sidebar() {
   const location = useLocation();
@@ -52,7 +53,8 @@ function Hr_sidebar() {
   ];
 
   return (
-    <aside className="w-72 h-screen bg-slate-950 text-gray-300 border-r border-slate-800 flex flex-col">
+    <div className="flex items-center">
+    <aside className="w-72 h-555 bg-slate-950 text-gray-300 border-r border-slate-800 flex flex-col">
 
       {/* Logo */}
       <div className="px-8 py-8">
@@ -121,6 +123,9 @@ function Hr_sidebar() {
       </div>
 
     </aside>
+    <Hr_topbar/>
+
+    </div>
   );
 }
 
