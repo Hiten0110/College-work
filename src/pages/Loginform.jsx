@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import Loader from "../components/Loader";
 
 function Loginform() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +39,23 @@ function Loginform() {
     setProfile(null);
     setUser(null);
   };
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+
+    const timer = setTimeout(() => {
+
+      setLoading(false);
+
+    }, 1000);
+
+    return () => clearTimeout(timer);
+
+  }, []);
+
+  if (loading) {
+    return <Loader/>;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center py-10">
