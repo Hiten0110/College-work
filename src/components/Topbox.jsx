@@ -25,7 +25,7 @@ function TopBox() {
 
           <div className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
             <Mail size={16} />
-            <span>support@hirekaro.com</span>
+            <a href="mailto:supporthirekaro@gmail.com"><span>supporthirekaro@gmail.com</span></a>
           </div>
 
         </div>
@@ -44,10 +44,10 @@ function TopBox() {
             className="cursor-pointer hover:text-sky-400 transition hover:scale-110"
           />
 
-          <Instagram
+          <a href="https://www.instagram.com/hirekaro.own/"><Instagram
             size={18}
             className="cursor-pointer hover:text-pink-500 transition hover:scale-110"
-          />
+          /></a>
 
           <Linkedin
             size={18}

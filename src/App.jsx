@@ -1,4 +1,4 @@
-
+import React, { useState, useEffect } from "react";
 // import Portal from "./components/Portal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -23,9 +23,31 @@ import Empdash from "./pages/Employee/Empdash";
 import AOS from 'aos'
 import TopBox from "./components/Topbox";
 import Dash from "./pages/HR/Dash";
+import Loader from "./components/Loader";
+import Payment from "../Payment";
+
 // import Conditional from "./pages/conditional";
 
 function App() {
+
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+
+  const timer = setTimeout(() => {
+
+    setLoading(false);
+
+  }, 3000);
+
+  return () => clearTimeout(timer);
+
+}, []);
+
+if (loading) {
+  return <Loader/>;
+}
+
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB]">
@@ -35,10 +57,12 @@ function App() {
         
         <TopBox/>
         <Routes>
+          <Route path='/payment' element={<Payment/>}/>
           {/* <Route path='/conditional' element={<Conditional/>}/> */}
           <Route path='/dash' element={<Dash/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/hr' element={<Hrdash/>}/>
+     
           <Route path='/employee' element={<Empdash/>}/>
           <Route path='/thankyou' element={<><Header1/><Thanku/></>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
@@ -53,7 +77,7 @@ function App() {
           <Route path="/company" element={<Company />} />
           <Route path="/signin" element={<><Header1/><Signin/></>} />
           <Route path="/get-started" element={<><Header1/><Loginform /></>} />
-          <Route path="/Tryxyzpeople" element={<><Header1/><Loginform /></>} />
+          <Route path="/loginpage" element={<><Header1/><Loginform /></>} />
   
         </Routes>
        <Footer/>

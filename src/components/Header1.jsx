@@ -10,7 +10,7 @@ function Header() {
         {/* Logo */}
 
         <Link
-          to="/home"
+          to="/"
           className="text-4xl font-bold tracking-wide"
         >
           <span className="text-blue-600">Hire</span>
@@ -19,37 +19,7 @@ function Header() {
 
         {/* Navigation */}
 
-        <nav className="hidden lg:flex items-center gap-10 font-medium text-gray-700">
-{/* 
-          <a href="#home" className="hover:text-blue-600 transition">
-            Home
-          </a> */}
 
-          <a href="#features" className="hover:text-blue-600 transition">
-            Features
-          </a>
-
-          {/* <a href="#modules" className="hover:text-blue-600 transition">
-            Modules
-          </a> */}
-
-          <a href="#pricing" className="hover:text-blue-600 transition">
-            Pricing
-          </a>
-
-          <a href="#reviews" className="hover:text-blue-600 transition">
-            Reviews
-          </a>
-
-          <a href="#faq" className="hover:text-blue-600 transition">
-            FAQ
-          </a>
-
-          {/* <a href="#contact" className="hover:text-blue-600 transition">
-            Contact
-          </a> */}
-
-        </nav>
 
         {/* Right Side */}
 

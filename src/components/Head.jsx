@@ -210,7 +210,7 @@ function Head() {
                     {/* Logo */}
 
                     <Link
-                        to="/home"
+                        to="/"
                         className="text-4xl font-bold tracking-wide"
                     >
                         <span className="text-blue-600">Hire</span>
@@ -912,13 +912,13 @@ function Head() {
                                 (Upto 30 Users)
 
                             </p>
-
+                            <Link to='/loginpage'>
                             <button className="mt-10 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
 
                                 Get Started Free
 
                             </button>
-
+                            </Link>
                         </div>
 
                         {/* Professional */}
@@ -962,13 +962,13 @@ function Head() {
                                 ₹40 per additional employee
 
                             </p>
-
+                            <Link to='/loginpage'>
                             <button className="mt-8 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
 
                                 Get Started
 
                             </button>
-
+                            </Link>
                         </div>
 
                         {/* Executive */}
@@ -1012,12 +1012,13 @@ function Head() {
                                 ₹70 per additional employee
 
                             </p>
-
+                            <Link to='/loginpage'>
                             <button className="mt-8 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
 
                                 Get Started
 
                             </button>
+                            </Link>
 
                         </div>
 

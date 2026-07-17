@@ -1,9 +1,28 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Loader from "../components/Loader";
 
 function Signin() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+
+  const timer = setTimeout(() => {
+
+    setLoading(false);
+
+  }, 1000);
+
+  return () => clearTimeout(timer);
+
+}, []);
+
+if (loading) {
+  return <Loader/>;
+}
 
   return (
     <div className="min-h-screen flex items-center justify-center">
