@@ -1,17 +1,27 @@
 
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import Loader from "../components/Loader";
 
 function Loginform() {
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("");
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    loginas: "",
+  });
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
@@ -39,6 +49,58 @@ function Loginform() {
     setProfile(null);
     setUser(null);
   };
+
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+  };
+
+  const postData = async (e) => {
+
+    e.preventDefault();
+
+    console.log(formData);
+
+    try {
+
+      let response = await fetch(
+        "http://localhost:3001/api/user/postData",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      let result = await response.json();
+
+      console.log(result);
+      if (response.ok) {
+
+        // Save user details for later use
+        localStorage.setItem("loginas", formData.loginas);
+        localStorage.setItem("username", formData.name);
+        localStorage.setItem("email", formData.email);
+
+        // Go to Price Page
+        navigate("/price");
+
+      }
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -54,7 +116,7 @@ function Loginform() {
   }, []);
 
   if (loading) {
-    return <Loader/>;
+    return <Loader />;
   }
 
   return (
@@ -71,7 +133,7 @@ function Loginform() {
           Start your 30-day free trial
         </h2>
 
-        <form className="mt-8 space-y-5">
+        <form onSubmit={postData} className="mt-8 space-y-5">
 
           {/* Name */}
           <div>
@@ -79,9 +141,7 @@ function Loginform() {
               Name <span className="text-red-500">*</span>
             </label>
 
-            <input
-              type="text"
-              placeholder="Enter your name"
+            <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Enter your name"
               className="w-full rounded-xl border border-gray-300 p-3 text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
           </div>
@@ -92,9 +152,7 @@ function Loginform() {
               Email <span className="text-red-500">*</span>
             </label>
 
-            <input
-              type="email"
-              placeholder="Enter your email"
+            <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email"
               className="w-full rounded-xl border border-gray-300 p-3 text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
           </div>
@@ -107,9 +165,7 @@ function Loginform() {
 
             <div className="relative">
 
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
+              <input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} placeholder="Enter password"
                 className="w-full rounded-xl border border-gray-300 p-3 pr-12 text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               />
 
@@ -134,9 +190,7 @@ function Loginform() {
               Phone Number <span className="text-red-500">*</span>
             </label>
 
-            <input
-              type="tel"
-              placeholder="+91 9876543210"
+            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+91 9876543210"
               className="w-full rounded-xl border border-gray-300 p-3 text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             />
           </div>
@@ -147,9 +201,10 @@ function Loginform() {
               Login As <span className="text-red-500">*</span>
             </label>
 
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+            <select name="loginas" value={formData.loginas} onChange={(e) => {
+              handleChange(e);
+              setRole(e.target.value);
+            }}
               className="w-full rounded-xl border border-gray-300 p-3 text-base outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
             >
               <option value="">Select</option>
@@ -181,25 +236,13 @@ function Loginform() {
           </div>
 
           {/* Button */}
-          <Link
-            to={
-              role === "admin"
-                ? "/admin"
-                : role === "hr"
-                  ? "/hr"
-                  : role === "employee"
-                    ? "/employee"
-                    : "#"
-            }
+          <button
+            type="submit"
+            disabled={role === ""}
+            className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl text-lg font-semibold transition disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
-            <button
-              type="button"
-              disabled={role === ""}
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl text-lg font-semibold transition disabled:bg-gray-400 disabled:cursor-not-allowed"
-            >
-              FREE SIGN UP
-            </button>
-          </Link>
+            FREE SIGN UP
+          </button>
 
           {/* Divider */}
           <div className="flex items-center">
@@ -257,5 +300,6 @@ function Loginform() {
     </div>
   );
 }
+
 
 export default Loginform;

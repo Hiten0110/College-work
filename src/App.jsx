@@ -25,6 +25,10 @@ import TopBox from "./components/Topbox";
 import Dash from "./pages/HR/Dash";
 import Loader from "./components/Loader";
 import Payment from "../Payment";
+import Price from "./pages/Price";
+import Payment1 from "../payment1";
+import Payment2 from "../Payment2";
+import Me from "./pages/HR/Me";
 
 // import Conditional from "./pages/conditional";
 
@@ -58,11 +62,14 @@ if (loading) {
         <TopBox/>
         <Routes>
           <Route path='/payment' element={<Payment/>}/>
+          <Route path='/payment1' element={<Payment1/>}/>
+          <Route path='/payment2' element={<Payment2/>}/>
+          <Route path='/me' element={<Me/>}/>
           {/* <Route path='/conditional' element={<Conditional/>}/> */}
           <Route path='/dash' element={<Dash/>}/>
           <Route path='/admin' element={<Admin/>}/>
           <Route path='/hr' element={<Hrdash/>}/>
-     
+          <Route path='/price' element={<Price/>}/>
           <Route path='/employee' element={<Empdash/>}/>
           <Route path='/thankyou' element={<><Header1/><Thanku/></>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
@@ -88,3 +95,16 @@ if (loading) {
 
 export default App;
 AOS.init();
+
+// import React from 'react'
+// import Payment from '../Payment'
+
+// function App() {
+//   return (
+//     <div>
+//       <Payment/>
+//     </div>
+//   )
+// }
+
+// export default App

@@ -33,31 +33,33 @@ function TopBox() {
         {/* Right Side */}
 
         <div className="flex items-center gap-5">
+          <a href="https://www.facebook.com/profile.php?id=61591874885626">
+            <Facebook
+              size={18}
+              className="cursor-pointer hover:text-blue-500 transition hover:scale-110"
+            />
+          </a>
 
-          <Facebook
-            size={18}
-            className="cursor-pointer hover:text-blue-500 transition hover:scale-110"
-          />
-
-          <Twitter
+          {/* <Twitter
             size={18}
             className="cursor-pointer hover:text-sky-400 transition hover:scale-110"
-          />
+          /> */}
 
           <a href="https://www.instagram.com/hirekaro.own/"><Instagram
             size={18}
             className="cursor-pointer hover:text-pink-500 transition hover:scale-110"
           /></a>
 
-          <Linkedin
-            size={18}
-            className="cursor-pointer hover:text-blue-400 transition hover:scale-110"
-          />
-
-          <Youtube
+          <a href="https://www.linkedin.com/in/hire-karo-829012423/">
+            <Linkedin
+              size={18}
+              className="cursor-pointer hover:text-blue-400 transition hover:scale-110"
+            />
+          </a>
+          {/* <Youtube
             size={18}
             className="cursor-pointer hover:text-red-500 transition hover:scale-110"
-          />
+          /> */}
 
         </div>
 

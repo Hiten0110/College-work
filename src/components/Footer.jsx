@@ -38,7 +38,7 @@ function Footer() {
               </a>
 
               <a
-                href="#"
+                href="https://www.instagram.com/hirekaro.own/"
                 className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-pink-500 hover:text-white transition duration-300"
               >
                 <Instagram size={20} />

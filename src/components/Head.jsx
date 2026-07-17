@@ -1405,14 +1405,14 @@ function Head() {
 
                         </p>
 
-                        <a href="#home">
+                            <Link to='/thankyou'>
 
                             <button className="mt-10 bg-yellow-400 hover:bg-yellow-500 text-black px-10 py-4 rounded-xl text-xl font-semibold transition duration-300 hover:scale-105 shadow-xl">
                                 Request A Demo
 
                             </button>
 
-                        </a>
+                            </Link>
 
                     </div>
 
