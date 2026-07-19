@@ -8,7 +8,7 @@ import {
   FaChartPie,
   FaHeadset,
 } from "react-icons/fa";
-
+import { CiLogout } from "react-icons/ci";
 function HrSidebar() {
   const menu = [
     { name: "Home", icon: <FaHome size={20} />, link: "#dashboard" },
@@ -18,6 +18,7 @@ function HrSidebar() {
     { name: "Finance", icon: <FaMoneyBillWave size={20} />, link: "#holidays" },
     { name: "Social", icon: <FaComments size={20} />, link: "#polls" },
     { name: "Performance", icon: <FaChartPie size={20} />, link: "#team" },
+    { name: "Logout", icon: <CiLogout size={20}/>, link:"/signin" }
   ];
 
   return (
@@ -47,8 +48,8 @@ function HrSidebar() {
 
         ))}
 
-      </div>
-
+     </div>
+  
     </aside>
   );
 }
