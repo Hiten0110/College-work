@@ -74,6 +74,12 @@ function Signin() {
 
       alert("Login Successful");
 
+      // Save logged-in user details
+      localStorage.setItem("email", result.user.email);
+      localStorage.setItem("username", result.user.name);
+      localStorage.setItem("phone", result.user.phone);
+      localStorage.setItem("loginas", result.user.loginas);
+
       if (result.user.loginas === "admin") {
 
         navigate("/admin");
