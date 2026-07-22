@@ -9,11 +9,12 @@ import {
   FaHeadset,
 } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
+import { IoMdPersonAdd } from "react-icons/io";
 function HrSidebar() {
   const menu = [
     { name: "Home", icon: <FaHome size={20} />, link: "#dashboard" },
     { name: "Me", icon: <FaUser size={20} />, link: "/me" },
-    // { name: "Add Employee" }
+    { name: "Add Employee", icon: <IoMdPersonAdd size={20}/>, link:"/addemp"},
     { name: "Attendance", icon: <FaClock size={20} />, link: "#attendance" },
     { name: "HR Help", icon: <FaHeadset size={20} />, link: "#polls" },
     { name: "Finance", icon: <FaMoneyBillWave size={20} />, link: "#holidays" },

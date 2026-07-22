@@ -29,6 +29,7 @@ import Price from "./pages/Price";
 import Payment1 from "../payment1";
 import Payment2 from "../Payment2";
 import Me from "./pages/HR/Me";
+import AddEmployee from "./pages/HR/Addemployee";
 
 // import Conditional from "./pages/conditional";
 
@@ -65,6 +66,8 @@ if (loading) {
           <Route path='/payment1' element={<Payment1/>}/>
           <Route path='/payment2' element={<Payment2/>}/>
           <Route path='/me' element={<Me/>}/>
+          <Route path='/addemp' element={<AddEmployee/>}/>
+          
           {/* <Route path='/conditional' element={<Conditional/>}/> */}
           <Route path='/dash' element={<Dash/>}/>
           <Route path='/admin' element={<Admin/>}/>
