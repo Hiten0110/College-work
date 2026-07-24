@@ -220,7 +220,7 @@ function Head() {
                     {/* Navigation */}
 
                     <nav className="hidden lg:flex items-center gap-10 font-medium text-gray-700">
-                        {/* 
+                        {/*                         
           <a href="#home" className="hover:text-blue-600 transition">
             Home
           </a> */}
@@ -454,12 +454,13 @@ function Head() {
                                 <option>500+</option>
 
                             </select>
+                            <Link to='/thankyou'>
+                                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition">
 
-                            <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg transition">
+                                    Request Demo
 
-                                Request Demo
-
-                            </button>
+                                </button>
+                            </Link>
 
                         </form>
 
@@ -913,11 +914,11 @@ function Head() {
 
                             </p>
                             <Link to='/loginpage'>
-                            <button className="mt-10 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
+                                <button className="mt-10 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
 
-                                Get Started Free
+                                    Get Started Free
 
-                            </button>
+                                </button>
                             </Link>
                         </div>
 
@@ -963,11 +964,11 @@ function Head() {
 
                             </p>
                             <Link to='/loginpage'>
-                            <button className="mt-8 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
+                                <button className="mt-8 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
 
-                                Get Started
+                                    Get Started
 
-                            </button>
+                                </button>
                             </Link>
                         </div>
 
@@ -1013,11 +1014,11 @@ function Head() {
 
                             </p>
                             <Link to='/loginpage'>
-                            <button className="mt-8 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
+                                <button className="mt-8 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
 
-                                Get Started
+                                    Get Started
 
-                            </button>
+                                </button>
                             </Link>
 
                         </div>
@@ -1052,13 +1053,13 @@ function Head() {
                                 please talk to our experts.
 
                             </p>
-                            
+
                             <Link to='/loginpage'>
-                            <button className="mt-10 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
+                                <button className="mt-10 w-full py-4 rounded-lg bg-blue-700 text-white font-semibold hover:bg-blue-800 transition">
 
-                                Get Started
+                                    Get Started
 
-                            </button>
+                                </button>
                             </Link>
                         </div>
 
@@ -1405,14 +1406,14 @@ function Head() {
 
                         </p>
 
-                            <Link to='/thankyou'>
+                        <a href="#home">
 
                             <button className="mt-10 bg-yellow-400 hover:bg-yellow-500 text-black px-10 py-4 rounded-xl text-xl font-semibold transition duration-300 hover:scale-105 shadow-xl">
                                 Request A Demo
 
                             </button>
 
-                            </Link>
+                        </a>
 
                     </div>
 

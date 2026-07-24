@@ -75,9 +75,9 @@ function PersonalInfo() {
 
                         </div>
 
-                        <button className="text-blue-600 font-semibold hover:text-blue-800">
+                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
                             Edit
-                        </button>
+                        </button> */}
 
                     </div>
 
@@ -98,9 +98,9 @@ function PersonalInfo() {
 
                         </div>
 
-                        <button className="text-blue-600 font-semibold hover:text-blue-800">
+                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
                             Edit
-                        </button>
+                        </button> */}
 
                     </div>
 
@@ -121,9 +121,9 @@ function PersonalInfo() {
 
                         </div>
 
-                        <button className="text-blue-600 font-semibold hover:text-blue-800">
+                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
                             Edit
-                        </button>
+                        </button> */}
 
                     </div>
 
@@ -144,9 +144,9 @@ function PersonalInfo() {
 
                         </div>
 
-                        <button className="text-blue-600 font-semibold hover:text-blue-800">
+                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
                             Edit
-                        </button>
+                        </button> */}
 
                     </div>
 

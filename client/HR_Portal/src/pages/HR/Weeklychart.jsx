@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import {
   ResponsiveContainer,
   BarChart,
@@ -65,13 +66,30 @@ function Dashboard() {
 
   // ---------------- Team Data ----------------
 
-  const team = [
-    { id: 1, name: "Rahul Sharma", status: "Present" },
-    { id: 2, name: "Priya Singh", status: "Leave" },
-    { id: 3, name: "Aman Verma", status: "Present" },
-    { id: 4, name: "Neha Gupta", status: "WFH" },
-    { id: 5, name: "Rohan Kumar", status: "Present" },
-  ];
+  const [team, setTeam] = useState([]);
+
+  useEffect(() => {
+    getEmployees();
+  }, []);
+
+  const getEmployees = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:3001/api/user/employees"
+      );
+
+      console.log("API Response:", res.data);
+
+      setTeam(res.data.employees);
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    console.log("Team Data:", team);
+  }, [team]);
 
   return (
     <div className="p-6 space-y-6">
@@ -191,20 +209,18 @@ function Dashboard() {
             </thead>
 
             <tbody>
-              {team.map((member) => (
+              {team.map((member, index) => (
                 <tr
-                  key={member.id}
+                  key={member._id}
                   className="border-b hover:bg-gray-50"
                 >
-                  <td className="p-3">{member.id}</td>
+                  <td className="p-3">{index + 1}</td>
                   <td className="p-3">{member.name}</td>
                   <td className="p-3">
                     <span
-                      className={`px-2 py-1 rounded-full text-xs font-semibold ${member.status === "Present"
+                      className={`px-2 py-1 rounded-full text-xs font-semibold ${member.status === "Active"
                         ? "bg-green-100 text-green-700"
-                        : member.status === "Leave"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-blue-100 text-blue-700"
+                        : "bg-red-100 text-red-700"
                         }`}
                     >
                       {member.status}
@@ -311,7 +327,7 @@ function Dashboard() {
         </div>
 
       </div>
-      <Attendance/>
+      <Attendance />
     </div>
   );
 }

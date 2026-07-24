@@ -30,6 +30,10 @@ import Payment1 from "../payment1";
 import Payment2 from "../Payment2";
 import Me from "./pages/HR/Me";
 import AddEmployee from "./pages/HR/Addemployee";
+import EmployeeAttendance from "./pages/HR/EmployeeAttendance";
+import ForgotPassword from "./pages/ForgotPasword";
+import VerifyOTP from "./pages/VerifyOTP";
+import ResetPassword from "./pages/ResetPassword";
 
 // import Conditional from "./pages/conditional";
 
@@ -67,7 +71,7 @@ if (loading) {
           <Route path='/payment2' element={<Payment2/>}/>
           <Route path='/me' element={<Me/>}/>
           <Route path='/addemp' element={<AddEmployee/>}/>
-          
+          <Route path='/attend' element={<EmployeeAttendance/>}/>
           {/* <Route path='/conditional' element={<Conditional/>}/> */}
           <Route path='/dash' element={<Dash/>}/>
           <Route path='/admin' element={<Admin/>}/>
@@ -86,6 +90,9 @@ if (loading) {
           <Route path="/partners" element={<Partners />} />
           <Route path="/company" element={<Company />} />
           <Route path="/signin" element={<><Header1/><Signin/></>} />
+          <Route path="/forgotpassword" element={<ForgotPassword/>}/>
+          <Route path="/verifyotp" element={<VerifyOTP/>} />
+          <Route path="/resetpassword" element={<ResetPassword/>} />
           <Route path="/get-started" element={<><Header1/><Loginform /></>} />
           <Route path="/loginpage" element={<><Header1/><Loginform /></>} />
   

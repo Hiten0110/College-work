@@ -33,7 +33,7 @@ function AddEmployee() {
 
         try {
             const response = await fetch(
-                "http://localhost:3001/api/employee/add",
+                "http://localhost:3001/api/user/addemployee",
                 {
                     method: "POST",
                     headers: {
@@ -67,7 +67,7 @@ function AddEmployee() {
                 status: "Active",
             });
 
-            navigate("/employees");
+            // navigate("/employees");
 
         } catch (err) {
             console.log(err);
@@ -77,7 +77,7 @@ function AddEmployee() {
     return (
         <div className="min-h-screen bg-slate-100 py-10">
             <Link to="/hr">
-                <button className="absolute top-6 left-6 bg-white p-3 rounded-xl shadow-md hover:bg-gray-100 transition">
+                <button className="absolute top-20 left-10 bg-white p-3 rounded-xl shadow-md hover:bg-gray-100 transition">
                     <IoMdArrowBack size={22} />
                 </button>
             </Link>

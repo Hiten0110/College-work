@@ -25,7 +25,7 @@ function TopBox() {
 
           <div className="flex items-center gap-2 hover:text-blue-400 transition cursor-pointer">
             <Mail size={16} />
-            <a href="mailto:supporthirekaro@gmail.com"><span>supporthirekaro@gmail.com</span></a>
+            <a href="mailto:supporthirekaro22@gmail.com"><span>supporthirekaro22@gmail.com</span></a>
           </div>
 
         </div>
