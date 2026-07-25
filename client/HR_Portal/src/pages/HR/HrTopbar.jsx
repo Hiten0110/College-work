@@ -16,7 +16,7 @@ function Hr_topbar() {
 
   return (
     <div className="bg-white min-h-screen">
-      <div className="w-320 h-20 bg-white border-b border-gray-200 flex items-center px-4 shadow-sm">
+      <div className="w-full h-16 sm:h-20 bg-white border-b border-gray-200 flex items-center px-2 sm:px-4 shadow-sm overflow-x-auto whitespace-nowrap scrollbar-none">
 
         {/* Dashboard */}
         <Link

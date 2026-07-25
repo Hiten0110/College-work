@@ -35,14 +35,14 @@ function Error() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#111827]">
-      <img src={img} alt="404" className="w-[500px]" />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#111827] px-4 py-8 text-center">
+      <img src={img} alt="404" className="w-full max-w-md h-auto rounded-2xl" />
 
-      <h1 className="text-white text-5xl font-bold mt-8">
+      <h1 className="text-white text-3xl sm:text-5xl font-bold mt-6 sm:mt-8">
         Error 404
       </h1>
 
-      <p className="text-gray-300 mt-3">
+      <p className="text-gray-300 mt-3 text-base sm:text-lg">
         Page Not Found
       </p>
     </div>

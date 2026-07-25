@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
     FaCheckCircle,
     FaClock,
@@ -9,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import API from "../../api/axios";
 
 function EmployeeAttendance() {
     const email = localStorage.getItem("email");
@@ -28,18 +28,13 @@ function EmployeeAttendance() {
 
     const fetchAttendance = async () => {
         try {
-            const response = await axios.get(
-                `http://localhost:3001/api/user/myattendance/${email}`
-            );
+            const response = await API.get(`/api/user/myattendance/${email}`);
 
             setAttendance(response.data);
             setFilteredAttendance(response.data);
-
             calculateSummary(response.data);
-
             setLoading(false);
         } catch (err) {
-            console.log(err);
             setLoading(false);
         }
     };
@@ -76,27 +71,24 @@ function EmployeeAttendance() {
     }, [search, attendance]);
 
     return (
-        <div className="min-h-screen bg-slate-100 p-8">
+        <div className="bg-slate-100 min-h-screen p-4 sm:p-10 relative">
 
             {/* Heading */}
-       
-                 <Link to="/hr">
-                    <button className="absolute top-20 left-6 bg-white p-3 rounded-xl shadow-md hover:bg-gray-100 transition">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 sm:mb-8">
+                <Link to="/hr">
+                    <button className="bg-white p-3 rounded-xl shadow-md hover:bg-gray-100 transition">
                         <IoMdArrowBack size={22} />
                     </button>
                 </Link>
-           
 
-            <div className="mb-8 ms-20">
-
-                <h1 className="text-4xl font-bold text-slate-800">
-                    My Attendance
-                </h1>
-
-                <p className="text-gray-500 mt-2">
-                    View your attendance history and daily records.
-                </p>
-
+                <div>
+                    <h1 className="text-2xl sm:text-4xl font-bold text-slate-800">
+                        My Attendance
+                    </h1>
+                    <p className="text-gray-500 mt-1 text-sm sm:text-base">
+                        View your attendance history and daily records.
+                    </p>
+                </div>
             </div>
 
             {/* Summary Cards */}

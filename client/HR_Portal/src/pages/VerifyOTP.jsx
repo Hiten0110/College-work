@@ -1,56 +1,41 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import API from "../api/axios";
 
 function VerifyOTP() {
     const [otp, setOtp] = useState("");
     const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
-
     const email = localStorage.getItem("resetEmail");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!otp) {
-            alert("Please enter OTP");
+            toast.warn("Please enter OTP");
             return;
         }
 
         try {
             setLoading(true);
-
-            const res = await axios.post(
-                "http://localhost:3001/api/user/verifyotp",
-                {
-                    email,
-                    otp,
-                }
-            );
-
-            alert(res.data.message);
-
+            const res = await API.post("/api/user/verifyotp", { email, otp });
+            toast.success(res.data.message || "OTP verified successfully!");
             navigate("/resetpassword");
-
         } catch (err) {
-
-            alert(
+            toast.error(
                 err.response?.data?.message ||
-                "Invalid OTP"
+                "Invalid OTP. Please try again."
             );
-
         } finally {
-
             setLoading(false);
-
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 py-8">
 
-            <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+            <div className="bg-white shadow-xl rounded-xl p-6 sm:p-8 w-full max-w-md">
 
                 <h2 className="text-3xl font-bold text-center text-blue-700">
                     Verify OTP

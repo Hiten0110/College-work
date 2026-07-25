@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { IoMdArrowBack } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import API from "../../api/axios";
 
 function AddEmployee() {
     const navigate = useNavigate();
@@ -32,25 +33,8 @@ function AddEmployee() {
         e.preventDefault();
 
         try {
-            const response = await fetch(
-                "http://localhost:3001/api/user/addemployee",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(employee),
-                }
-            );
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                alert(result.message);
-                return;
-            }
-
-            alert("Employee Added Successfully!");
+            const response = await API.post("/api/user/addemployee", employee);
+            toast.success("Employee Added Successfully!");
 
             setEmployee({
                 name: "",
@@ -70,31 +54,34 @@ function AddEmployee() {
             // navigate("/employees");
 
         } catch (err) {
-            console.log(err);
+            toast.error(err.response?.data?.message || "Failed to add employee");
         }
     };
 
     return (
-        <div className="min-h-screen bg-slate-100 py-10">
-            <Link to="/hr">
-                <button className="absolute top-20 left-10 bg-white p-3 rounded-xl shadow-md hover:bg-gray-100 transition">
-                    <IoMdArrowBack size={22} />
-                </button>
-            </Link>
+        <div className="bg-slate-100 min-h-screen px-4 sm:px-8 py-6 sm:py-12 flex items-center justify-center">
 
-            <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl p-10">
+            <div className="w-full max-w-4xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-xl p-5 sm:p-10">
 
-                <h1 className="text-4xl font-bold text-blue-600 mb-2">
-                    Add Employee
-                </h1>
-
-                <p className="text-gray-500 mb-8">
-                    Fill in the employee details.
-                </p>
+                <div className="flex items-center gap-4 mb-6 sm:mb-8 border-b pb-4 sm:pb-6">
+                    <Link to="/hr">
+                        <button className="bg-slate-100 hover:bg-slate-200 p-3 rounded-xl shadow-sm transition flex items-center justify-center text-slate-800 shrink-0">
+                            <IoMdArrowBack size={22} />
+                        </button>
+                    </Link>
+                    <div>
+                        <h1 className="text-2xl sm:text-4xl font-bold text-blue-600">
+                            Add Employee
+                        </h1>
+                        <p className="text-gray-500 mt-0.5 text-xs sm:text-base">
+                            Fill in the employee details.
+                        </p>
+                    </div>
+                </div>
 
                 <form
                     onSubmit={addEmployee}
-                    className="grid grid-cols-2 gap-6"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
                 >
 
                     <div>

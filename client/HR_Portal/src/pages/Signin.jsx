@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import API from "../api/axios";
 
 function Signin() {
   const [error, setError] = useState("");
@@ -49,30 +50,11 @@ function Signin() {
 
     try {
 
-      const response = await fetch(
-        "http://localhost:3001/api/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const result = await response.json();
-
-      if (!response.ok) {
-
-        setError(result.message);
-
-        return;
-
-      }
+      const response = await API.post("/api/user/login", formData);
+      const result = response.data;
 
       setError("");
-
-      alert("Login Successful");
+      toast.success("Login Successful!");
 
       // Save logged-in user details
       localStorage.setItem("email", result.user.email);
@@ -80,32 +62,30 @@ function Signin() {
       localStorage.setItem("phone", result.user.phone);
       localStorage.setItem("loginas", result.user.loginas);
 
-      if (result.user.loginas === "admin") {
+      const role = (result.user.loginas || "").toLowerCase().trim();
 
-        navigate("/admin");
-
-      } else if (result.user.loginas === "hr") {
-
+      if (role === "hr") {
         navigate("/hr");
-
+      } else if (role === "admin") {
+        navigate("/admin");
       } else {
-
         navigate("/employee");
-
       }
 
     } catch (err) {
 
-      console.log(err);
+      const msg = err.response?.data?.message || "Login failed. Please check credentials.";
+      setError(msg);
+      toast.error(msg);
 
     }
 
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 py-8 sm:py-12">
 
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 ">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 sm:p-8">
 
         {/* Logo */}
         <h1 className="text-4xl font-bold text-center mb-2">

@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend, } from "recharts";
 import { FaHome, FaUser, FaClock, FaMoneyBillWave, FaComments, FaChartPie, FaHeadset, FaTachometerAlt, FaCalendarAlt, FaClipboardList, FaUsers, } from "react-icons/fa";
-import HrSidebar from "./Hr_sidebar";
+import HrSidebar from "./HrSidebar";
 
 function Hrdash1() {
 
@@ -152,13 +152,13 @@ function Hrdash1() {
 
       {/* ================= Right Side ================= */}
 
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
 
         {/* ================= Top Navigation ================= */}
 
-        <div className="bg-white shadow-sm border-b sticky top-0 z-40">
+        <div className="bg-white shadow-sm border-b sticky top-0 z-30">
 
-          <div className="flex items-center overflow-x-auto">
+          <div className="flex items-center overflow-x-auto whitespace-nowrap scrollbar-none">
 
             <a
               href="#dashboard"

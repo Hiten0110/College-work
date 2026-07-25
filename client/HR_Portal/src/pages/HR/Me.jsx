@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaUser, FaEnvelope, FaPhoneAlt, FaUserShield } from "react-icons/fa";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link } from "react-router-dom";
+import API from "../../api/axios";
 
 function PersonalInfo() {
 
@@ -12,142 +13,89 @@ function PersonalInfo() {
         loginas: ""
     });
 
-    console.log("Current User State:", user);
-
     useEffect(() => {
+        const email = localStorage.getItem("email");
+        if (!email) return;
 
-    const email = localStorage.getItem("email");
-
-    console.log("Stored Email:", email);
-
-    if (!email) {
-        console.log("No email found in localStorage");
-        return;
-    }
-
-    fetch(`http://localhost:3001/api/user/getUser/${email}`)
-        .then((res) => {
-            console.log("Status:", res.status);
-            return res.json();
-        })
-        .then((data) => {
-            console.log("API Response:", data);
-            setUser(data);
-        })
-        .catch((err) => {
-            console.log("Fetch Error:", err);
-        });
-
-}, []);
+        API.get(`/api/user/getUser/${email}`)
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((err) => {
+                // error handled silently
+            });
+    }, []);
         return (
-            <div className="min-h-screen bg-slate-100 p-8 relative">
+            <div className="min-h-screen bg-slate-100 p-4 sm:p-8 flex items-center justify-center">
 
-                <Link to="/hr">
-                    <button className="absolute top-6 left-6 bg-white p-3 rounded-xl shadow-md hover:bg-gray-100 transition">
-                        <IoMdArrowBack size={22} />
-                    </button>
-                </Link>
+                <div className="w-full max-w-3xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-xl p-5 sm:p-8">
 
-                <div className="w-[800px] mx-auto bg-white rounded-3xl shadow-xl p-8 mt-14">
-
-                    <h1 className="text-4xl font-bold text-slate-800">
-                        Personal Information
-                    </h1>
-
-                    <p className="text-gray-500 mt-2 mb-8">
-                        View and manage your personal details.
-                    </p>
+                    <div className="flex items-center gap-4 mb-6 sm:mb-8 border-b pb-4 sm:pb-6">
+                        <Link to="/hr">
+                            <button className="bg-slate-100 hover:bg-slate-200 p-3 rounded-xl shadow-sm transition flex items-center justify-center text-slate-800 shrink-0">
+                                <IoMdArrowBack size={22} />
+                            </button>
+                        </Link>
+                        <div>
+                            <h1 className="text-2xl sm:text-4xl font-bold text-slate-800">
+                                Personal Information
+                            </h1>
+                            <p className="text-gray-500 mt-0.5 text-xs sm:text-base">
+                                View and manage your personal details.
+                            </p>
+                        </div>
+                    </div>
 
                     {/* Name */}
-
-                    <div className="flex items-center justify-between border rounded-2xl p-6 mb-6 hover:shadow-lg transition">
-
-                        <div className="flex items-center gap-5">
-
-                            <div className="bg-blue-100 p-4 rounded-xl">
-                                <FaUser className="text-3xl text-blue-600" />
+                    <div className="flex items-center justify-between border rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 hover:shadow-lg transition">
+                        <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+                            <div className="bg-blue-100 p-3 sm:p-4 rounded-xl shrink-0">
+                                <FaUser className="text-xl sm:text-3xl text-blue-600" />
                             </div>
-
-                            <div>
-                                <h2 className="text-gray-500">Name</h2>
-                                <h1 className="text-2xl font-semibold">{user.name}</h1>
+                            <div className="min-w-0">
+                                <h2 className="text-gray-500 text-xs sm:text-sm">Name</h2>
+                                <h1 className="text-base sm:text-2xl font-semibold break-words">{user.name}</h1>
                             </div>
-
                         </div>
-
-                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
-                            Edit
-                        </button> */}
-
                     </div>
 
                     {/* Email */}
-
-                    <div className="flex items-center justify-between border rounded-2xl p-6 mb-6 hover:shadow-lg transition">
-
-                        <div className="flex items-center gap-5">
-
-                            <div className="bg-blue-100 p-4 rounded-xl">
-                                <FaEnvelope className="text-3xl text-blue-600" />
+                    <div className="flex items-center justify-between border rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 hover:shadow-lg transition">
+                        <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+                            <div className="bg-blue-100 p-3 sm:p-4 rounded-xl shrink-0">
+                                <FaEnvelope className="text-xl sm:text-3xl text-blue-600" />
                             </div>
-
-                            <div>
-                                <h2 className="text-gray-500">Email</h2>
-                                <h1 className="text-2xl font-semibold">{user.email}</h1>
+                            <div className="min-w-0">
+                                <h2 className="text-gray-500 text-xs sm:text-sm">Email</h2>
+                                <h1 className="text-base sm:text-2xl font-semibold break-all">{user.email}</h1>
                             </div>
-
                         </div>
-
-                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
-                            Edit
-                        </button> */}
-
                     </div>
 
                     {/* Phone */}
-
-                    <div className="flex items-center justify-between border rounded-2xl p-6 mb-6 hover:shadow-lg transition">
-
-                        <div className="flex items-center gap-5">
-
-                            <div className="bg-blue-100 p-4 rounded-xl">
-                                <FaPhoneAlt className="text-3xl text-blue-600" />
+                    <div className="flex items-center justify-between border rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 hover:shadow-lg transition">
+                        <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+                            <div className="bg-blue-100 p-3 sm:p-4 rounded-xl shrink-0">
+                                <FaPhoneAlt className="text-xl sm:text-3xl text-blue-600" />
                             </div>
-
-                            <div>
-                                <h2 className="text-gray-500">Phone Number</h2>
-                                <h1 className="text-2xl font-semibold">{user.phone}</h1>
+                            <div className="min-w-0">
+                                <h2 className="text-gray-500 text-xs sm:text-sm">Phone Number</h2>
+                                <h1 className="text-base sm:text-2xl font-semibold break-words">{user.phone}</h1>
                             </div>
-
                         </div>
-
-                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
-                            Edit
-                        </button> */}
-
                     </div>
 
                     {/* Role */}
-
-                    <div className="flex items-center justify-between border rounded-2xl p-6 hover:shadow-lg transition">
-
-                        <div className="flex items-center gap-5">
-
-                            <div className="bg-blue-100 p-4 rounded-xl">
-                                <FaUserShield className="text-3xl text-blue-600" />
+                    <div className="flex items-center justify-between border rounded-2xl p-4 sm:p-6 hover:shadow-lg transition">
+                        <div className="flex items-center gap-3 sm:gap-5 min-w-0">
+                            <div className="bg-blue-100 p-3 sm:p-4 rounded-xl shrink-0">
+                                <FaUserShield className="text-xl sm:text-3xl text-blue-600" />
                             </div>
-
-                            <div>
-                                <h2 className="text-gray-500">Role</h2>
-                                <h1 className="text-2xl font-semibold">{user.loginas}</h1>
+                            <div className="min-w-0">
+                                <h2 className="text-gray-500 text-xs sm:text-sm">Role</h2>
+                                <h1 className="text-base sm:text-2xl font-semibold break-words">{user.loginas}</h1>
                             </div>
-
                         </div>
-
-                        {/* <button className="text-blue-600 font-semibold hover:text-blue-800">
-                            Edit
-                        </button> */}
-
                     </div>
 
                 </div>

@@ -4,19 +4,19 @@ import { FiCheck } from "react-icons/fi";
 
 function Price() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50 py-20 px-6">
+    <section className="min-h-screen bg-gradient-to-b from-slate-50 to-blue-50 py-10 sm:py-20 px-4 sm:px-6">
 
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
 
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 sm:mb-16">
 
-          <h1 className="text-5xl font-bold text-gray-900">
+          <h1 className="text-3xl sm:text-5xl font-bold text-gray-900">
             Choose Your Perfect Plan
           </h1>
 
-          <p className="text-lg text-gray-600 mt-5 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 mt-3 sm:mt-5 max-w-3xl mx-auto">
             Start with a free trial and upgrade whenever your business grows.
             Simple, transparent pricing with no hidden charges.
           </p>
@@ -25,7 +25,7 @@ function Price() {
 
         {/* Pricing Cards */}
 
-        <div className="grid xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8">
 
           {/* ================= FREE TRIAL ================= */}
 

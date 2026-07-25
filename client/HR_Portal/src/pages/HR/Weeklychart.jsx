@@ -92,7 +92,7 @@ function Dashboard() {
   }, [team]);
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-4 sm:p-6 space-y-6 min-w-0">
 
       {/* Charts Section */}
       <div className="flex flex-col lg:flex-row gap-6">

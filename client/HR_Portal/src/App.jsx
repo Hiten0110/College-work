@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-// import Portal from "./components/Portal";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
 import Footer from "./components/Footer";
-import Header from "./components/Header";
 import Products from "./pages/Products";
 import Loginform from "./pages/Loginform";
 import Industries from "./pages/Industries";
@@ -20,22 +20,21 @@ import Signin from "./pages/Signin";
 import Admin from "./pages/Admin/Admin";
 import Hrdash from "./pages/HR/Hrdash";
 import Empdash from "./pages/Employee/Empdash";
-import AOS from 'aos'
+import AOS from 'aos';
 import TopBox from "./components/Topbox";
 import Dash from "./pages/HR/Dash";
 import Loader from "./components/Loader";
 import Payment from "../Payment";
 import Price from "./pages/Price";
-import Payment1 from "../payment1";
+import Payment1 from "../Payment1";
 import Payment2 from "../Payment2";
 import Me from "./pages/HR/Me";
 import AddEmployee from "./pages/HR/Addemployee";
 import EmployeeAttendance from "./pages/HR/EmployeeAttendance";
-import ForgotPassword from "./pages/ForgotPasword";
+import ForgotPassword from "./pages/ForgotPassword";
 import VerifyOTP from "./pages/VerifyOTP";
 import ResetPassword from "./pages/ResetPassword";
-
-// import Conditional from "./pages/conditional";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
@@ -60,24 +59,20 @@ if (loading) {
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB]">
-        {/* <div> */}
-        
-        {/* <Header /> */}
-        
+        <ToastContainer position="top-right" autoClose={3000} theme="colored" />
         <TopBox/>
         <Routes>
-          <Route path='/payment' element={<Payment/>}/>
-          <Route path='/payment1' element={<Payment1/>}/>
-          <Route path='/payment2' element={<Payment2/>}/>
-          <Route path='/me' element={<Me/>}/>
-          <Route path='/addemp' element={<AddEmployee/>}/>
-          <Route path='/attend' element={<EmployeeAttendance/>}/>
-          {/* <Route path='/conditional' element={<Conditional/>}/> */}
-          <Route path='/dash' element={<Dash/>}/>
-          <Route path='/admin' element={<Admin/>}/>
-          <Route path='/hr' element={<Hrdash/>}/>
+          <Route path='/payment' element={<ProtectedRoute><Payment/></ProtectedRoute>}/>
+          <Route path='/payment1' element={<ProtectedRoute><Payment1/></ProtectedRoute>}/>
+          <Route path='/payment2' element={<ProtectedRoute><Payment2/></ProtectedRoute>}/>
+          <Route path='/me' element={<ProtectedRoute><Me/></ProtectedRoute>}/>
+          <Route path='/addemp' element={<ProtectedRoute><AddEmployee/></ProtectedRoute>}/>
+          <Route path='/attend' element={<ProtectedRoute><EmployeeAttendance/></ProtectedRoute>}/>
+          <Route path='/dash' element={<ProtectedRoute><Dash/></ProtectedRoute>}/>
+          <Route path='/admin' element={<ProtectedRoute><Admin/></ProtectedRoute>}/>
+          <Route path='/hr' element={<ProtectedRoute><Hrdash/></ProtectedRoute>}/>
+          <Route path='/employee' element={<ProtectedRoute><Empdash/></ProtectedRoute>}/>
           <Route path='/price' element={<Price/>}/>
-          <Route path='/employee' element={<Empdash/>}/>
           <Route path='/thankyou' element={<><Header1/><Thanku/></>}/>
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path="/users" element={<Users/>}/>
@@ -95,7 +90,6 @@ if (loading) {
           <Route path="/resetpassword" element={<ResetPassword/>} />
           <Route path="/get-started" element={<><Header1/><Loginform /></>} />
           <Route path="/loginpage" element={<><Header1/><Loginform /></>} />
-  
         </Routes>
        <Footer/>
       </div>

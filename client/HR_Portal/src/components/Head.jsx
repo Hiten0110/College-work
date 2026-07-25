@@ -10,6 +10,7 @@ import reports from "../assets/reports.png";
 import corehr from "../assets/corehr.png";
 
 function Head() {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openFAQ, setOpenFAQ] = useState(null);
 
     const faqs = [
@@ -274,22 +275,39 @@ function Head() {
 
                     </div>
 
-                    {/* Mobile Menu */}
-
-                    <button className="lg:hidden">
-
-                        <Menu size={30} />
-
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="lg:hidden text-gray-700 hover:text-blue-600 p-2"
+                        aria-label="Toggle Menu"
+                    >
+                        <Menu size={28} />
                     </button>
 
                 </div>
 
+                {/* Mobile Navigation Drawer */}
+                {isMenuOpen && (
+                    <div className="lg:hidden bg-white border-t border-gray-100 px-6 py-4 space-y-3 shadow-lg">
+                        <a href="#features" onClick={() => setIsMenuOpen(false)} className="block py-1 font-medium text-gray-700 hover:text-blue-600">Features</a>
+                        <a href="#pricing" onClick={() => setIsMenuOpen(false)} className="block py-1 font-medium text-gray-700 hover:text-blue-600">Pricing</a>
+                        <a href="#reviews" onClick={() => setIsMenuOpen(false)} className="block py-1 font-medium text-gray-700 hover:text-blue-600">Reviews</a>
+                        <a href="#faq" onClick={() => setIsMenuOpen(false)} className="block py-1 font-medium text-gray-700 hover:text-blue-600">FAQ</a>
+                        <div className="pt-3 border-t border-gray-100 flex flex-col space-y-2">
+                            <Link to="/signin" onClick={() => setIsMenuOpen(false)} className="text-center py-2 text-blue-600 font-semibold border border-blue-600 rounded-lg">Sign In</Link>
+                            <Link to="/get-started" onClick={() => setIsMenuOpen(false)}>
+                                <button className="w-full py-2.5 rounded-full bg-blue-600 text-white font-semibold text-center">Get Started</button>
+                            </Link>
+                        </div>
+                    </div>
+                )}
+
             </header>
 
 
-            <section id="home" className="min-h-screen flex items-center bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB]">
+            <section id="home" className="min-h-screen flex items-center bg-gradient-to-br from-[#111827] via-[#1E3A8A] to-[#2563EB] py-12 lg:py-0">
 
-                <div className="max-w-7xl mx-auto px-8 grid lg:grid-cols-2 gap-16 items-center">
+                <div className="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
                     {/* Left Section */}
 
@@ -297,7 +315,7 @@ function Head() {
 
                         {/* Rating */}
 
-                        <div className="flex items-center gap-3 bg-white w-fit px-5 py-2 rounded-full shadow-lg">
+                        <div className="flex items-center gap-3 bg-white w-fit px-4 sm:px-5 py-2 rounded-full shadow-lg text-xs sm:text-base">
 
                             <Star
                                 fill="#FFD700"
@@ -315,7 +333,7 @@ function Head() {
 
                         {/* Heading */}
 
-                        <h1 className="text-6xl font-extrabold text-white mt-8 leading-tight">
+                        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white mt-6 sm:mt-8 leading-tight">
 
                             Simplify Your
 

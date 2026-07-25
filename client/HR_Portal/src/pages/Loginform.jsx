@@ -5,7 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { toast } from "react-toastify";
 import Loader from "../components/Loader";
+import API from "../api/axios";
 
 function Loginform() {
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ function Loginform() {
 
   const login = useGoogleLogin({
     onSuccess: (codeResponse) => setUser(codeResponse),
-    onError: (error) => console.log('Login Failed:', error),
+    onError: (error) => toast.error("Google Login Failed"),
   });
 
   useEffect(() => {
@@ -40,7 +42,7 @@ function Loginform() {
         .then((res) => {
           setProfile(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => toast.error("Failed to fetch Google profile"));
     }
   }, [user]);
 
@@ -51,54 +53,29 @@ function Loginform() {
   };
 
   const handleChange = (e) => {
-
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-
   };
 
   const postData = async (e) => {
-
     e.preventDefault();
-
-    console.log(formData);
-
     try {
+      const response = await API.post("/api/user/postData", formData);
+      const result = response.data;
 
-      let response = await fetch(
-        "http://localhost:3001/api/user/postData",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      // Save user details for later use
+      localStorage.setItem("loginas", formData.loginas);
+      localStorage.setItem("username", formData.name);
+      localStorage.setItem("email", formData.email);
 
-      let result = await response.json();
-
-      console.log(result);
-      if (response.ok) {
-
-        // Save user details for later use
-        localStorage.setItem("loginas", formData.loginas);
-        localStorage.setItem("username", formData.name);
-        localStorage.setItem("email", formData.email);
-
-        // Go to Price Page
-        navigate("/price");
-
-      }
-
+      toast.success("Account created successfully! Select your plan.");
+      navigate("/price");
     } catch (error) {
-
-      console.log(error);
-
+      const msg = error.response?.data?.message || "Registration failed. Please try again.";
+      toast.error(msg);
     }
-
   };
 
   const [loading, setLoading] = useState(true);
@@ -120,16 +97,16 @@ function Loginform() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-10">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 sm:px-6 py-6 sm:py-12">
 
-      <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 sm:p-8">
 
         {/* Logo */}
-        <h1 className="text-4xl font-bold text-blue-600">
+        <h1 className="text-3xl sm:text-4xl font-bold text-blue-600">
           Hire<span className="text-black">Karo</span>
         </h1>
 
-        <h2 className="text-3xl font-bold mt-6">
+        <h2 className="text-2xl sm:text-3xl font-bold mt-4 sm:mt-6">
           Start your 30-day free trial
         </h2>
 

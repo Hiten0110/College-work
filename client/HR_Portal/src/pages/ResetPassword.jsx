@@ -1,69 +1,50 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import API from "../api/axios";
 
 function ResetPassword() {
 
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
-
     const email = localStorage.getItem("resetEmail");
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
 
         if (!password || !confirmPassword) {
-            alert("Please fill all fields");
+            toast.warn("Please fill all password fields");
             return;
         }
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match");
+            toast.error("Passwords do not match");
             return;
         }
 
         try {
-
             setLoading(true);
-
-            const res = await axios.put(
-                "http://localhost:3001/api/user/resetpassword",
-                {
-                    email,
-                    password,
-                }
-            );
-
-            alert(res.data.message);
-
+            const res = await API.put("/api/user/resetpassword", { email, password });
+            toast.success(res.data.message || "Password reset successfully! Please sign in.");
             localStorage.removeItem("resetEmail");
-
             navigate("/signin");
-
         } catch (err) {
-
-            alert(
+            toast.error(
                 err.response?.data?.message ||
                 "Failed to reset password"
             );
-
         } finally {
-
             setLoading(false);
-
         }
-
     };
 
     return (
 
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 py-8">
 
-            <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+            <div className="bg-white shadow-xl rounded-xl p-6 sm:p-8 w-full max-w-md">
 
                 <h2 className="text-3xl font-bold text-center text-blue-700">
                     Reset Password

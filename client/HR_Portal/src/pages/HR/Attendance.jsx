@@ -78,86 +78,77 @@ function Attendance() {
         </span>
       </div>
 
-      {/* Week Days */}
+      {/* Calendar Scroll Wrapper */}
+      <div className="overflow-x-auto">
+        <div className="min-w-[700px]">
 
-      <div className="grid grid-cols-7 bg-gray-100">
-
-        {days.map((day) => (
-          <div
-            key={day}
-            className="text-center font-semibold text-gray-700 border p-3"
-          >
-            {day}
-          </div>
-        ))}
-
-      </div>
-
-      {/* Calendar */}
-
-      <div className="grid grid-cols-7">
-
-        {dates.map((item, index) => (
-          <div
-            key={`${item.month || "current"}-${item.day}-${index}`}
-            className="border h-36 p-3 flex flex-col justify-between hover:bg-gray-50 transition"
-          >
-            <div>
-
-              {/* Date */}
-
-              <h3
-                className={`font-bold text-lg ${
-                  item.month === "prev" || item.month === "next"
-                    ? "text-gray-400"
-                    : "text-black"
-                }`}
+          {/* Week Days */}
+          <div className="grid grid-cols-7 bg-gray-100">
+            {days.map((day) => (
+              <div
+                key={day}
+                className="text-center font-semibold text-gray-700 border p-3 text-xs sm:text-sm"
               >
-                {item.day}
-              </h3>
-
-              {/* Status */}
-
-              <div className="mt-3">
-
-                {item.status === "Present" && (
-                  <span className="bg-green-500 text-white text-xs px-3 py-1 rounded-full">
-                    Present
-                  </span>
-                )}
-
-                {item.status === "Off" && (
-                  <span className="bg-gray-400 text-white text-xs px-3 py-1 rounded-full">
-                    Off
-                  </span>
-                )}
-
-                {item.status === "Partial" && (
-                  <span className="bg-yellow-500 text-white text-xs px-3 py-1 rounded-full">
-                    Partial
-                  </span>
-                )}
-
-                {item.status === "Leave" && (
-                  <span className="bg-red-500 text-white text-xs px-3 py-1 rounded-full">
-                    Leave
-                  </span>
-                )}
-
+                {day}
               </div>
-            </div>
-
-            {/* Working Hours */}
-
-            {item.hours && (
-              <p className="text-xs text-center bg-gray-100 py-2 rounded font-medium text-gray-700">
-                Working Hours : {item.hours}
-              </p>
-            )}
-
+            ))}
           </div>
-        ))}
 
+          {/* Calendar */}
+          <div className="grid grid-cols-7">
+            {dates.map((item, index) => (
+              <div
+                key={`${item.month || "current"}-${item.day}-${index}`}
+                className="border h-28 sm:h-36 p-2 sm:p-3 flex flex-col justify-between hover:bg-gray-50 transition"
+              >
+                <div>
+                  <h3
+                    className={`font-bold text-sm sm:text-lg ${
+                      item.month === "prev" || item.month === "next"
+                        ? "text-gray-400"
+                        : "text-black"
+                    }`}
+                  >
+                    {item.day}
+                  </h3>
+
+                  <div className="mt-1 sm:mt-3">
+                    {item.status === "Present" && (
+                      <span className="bg-green-500 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+                        Present
+                      </span>
+                    )}
+
+                    {item.status === "Off" && (
+                      <span className="bg-gray-400 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+                        Off
+                      </span>
+                    )}
+
+                    {item.status === "Partial" && (
+                      <span className="bg-yellow-500 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+                        Partial
+                      </span>
+                    )}
+
+                    {item.status === "Leave" && (
+                      <span className="bg-red-500 text-white text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-full">
+                        Leave
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {item.hours && (
+                  <p className="text-[10px] sm:text-xs text-center bg-gray-100 py-1 sm:py-2 rounded font-medium text-gray-700">
+                    Hours: {item.hours}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+
+        </div>
       </div>
     </div>
   );

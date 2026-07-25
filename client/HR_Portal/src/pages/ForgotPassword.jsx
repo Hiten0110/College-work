@@ -1,56 +1,43 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import API from "../api/axios";
 
 function ForgotPassword() {
 
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
-
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!email) {
-            alert("Please enter your email");
+            toast.warn("Please enter your email");
             return;
         }
 
         try {
-
             setLoading(true);
-
-            const res = await axios.post(
-                "http://localhost:3001/api/user/forgotpassword",
-                { email }
-            );
-
-            alert(res.data.message);
-
+            const res = await API.post("/api/user/forgotpassword", { email });
+            toast.success(res.data.message || "OTP sent to your email!");
             localStorage.setItem("resetEmail", email);
-
             navigate("/verifyotp");
-
         } catch (err) {
-
-            alert(
+            toast.error(
                 err.response?.data?.message ||
-                "Something went wrong"
+                "Something went wrong while sending OTP"
             );
-
         } finally {
-
             setLoading(false);
-
         }
     };
 
     return (
 
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4 sm:px-6 py-8">
 
-            <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md">
+            <div className="bg-white shadow-xl rounded-xl p-6 sm:p-8 w-full max-w-md">
 
                 <h2 className="text-3xl font-bold text-center text-blue-700">
                     Forgot Password

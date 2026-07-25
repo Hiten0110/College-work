@@ -1,12 +1,12 @@
-import axios from "axios";
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiTwotoneDatabase } from "react-icons/ai";
 import { FaPercent } from "react-icons/fa";
 import { FiCheck } from "react-icons/fi";
 import { TbTaxEuro } from "react-icons/tb";
+import { toast } from "react-toastify";
 import img from "./public/hirekarologo.png";
-
+import API from "./src/api/axios";
 
 function Payment1() {
 
@@ -22,75 +22,49 @@ function Payment1() {
             document.body.appendChild(script);
         });
     }
+
     async function displayRazorpay() {
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
         if (!res) {
-            alert("Razorpay SDK failed to load. Are you online?");
+            toast.error("Razorpay SDK failed to load. Are you online?");
             return;
         }
-        const result = await axios.post("http://localhost:3001/api/payment/orders", { amount: 112482 });
-        if (!result) {
-            alert("Server error. Are you online?");
-            return;
+        try {
+            const result = await API.post("/api/payment/orders", { amount: 99900 });
+            const { amount, id: order_id, currency } = result.data;
+            const options = {
+                key: "rzp_test_SjOOD4SfcQ88sp",
+                amount: amount.toString(),
+                currency: currency,
+                name: "HireKaro",
+                description: "Professional Plan Subscription",
+                order_id: order_id,
+                handler: async function (response) {
+                    const data = {
+                        orderCreationId: order_id,
+                        razorpayPaymentId: response.razorpay_payment_id,
+                        razorpayOrderId: response.razorpay_order_id,
+                        razorpaySignature: response.razorpay_signature,
+                    };
+                    await API.post("/api/payment/success", data);
+                    successSound.current.play().catch(() => {});
+                    toast.success("Payment Successful!");
+                    navigate("/thankyou");
+                },
+                prefill: {
+                    name: localStorage.getItem("username") || "User",
+                    email: localStorage.getItem("email") || "user@example.com",
+                    contact: localStorage.getItem("phone") || "9999999999",
+                },
+                theme: {
+                    color: "#2563eb",
+                },
+            };
+            const paymentObject = new window.Razorpay(options);
+            paymentObject.open();
+        } catch (err) {
+            toast.error("Payment initiation failed. Please try again.");
         }
-        const { amount, id: order_id, currency } = result.data;
-        const options = {
-            key: "rzp_test_SjOOD4SfcQ88sp",
-            amount: amount.toString(),
-            currency: currency,
-            name: "HireKaro",
-            description: "Test Transaction",
-            order_id: order_id,
-            handler: async function (response) {
-
-                const data = {
-                    orderCreationId: order_id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpaySignature: response.razorpay_signature,
-                };
-
-                const result = await axios.post(
-                    "http://localhost:3001/api/payment/success",
-                    data
-                );
-
-                // Play success sound
-                successSound.current.play().catch((err) => {
-                    console.log("Unable to play sound:", err);
-                });
-
-                // Wait for sound to play before redirecting
-                setTimeout(() => {
-
-                    alert(result.data.msg);
-
-                    const role = localStorage.getItem("loginas");
-
-                    if (role === "admin") {
-                        navigate("/admin");
-                    }
-                    else if (role === "hr") {
-                        navigate("/hr");
-                    }
-                    else {
-                        navigate("/employee");
-                    }
-
-                }, 1800);
-            },
-
-            prefill: {
-                name: "Your Name",
-                email: "your.email@example.com",
-                contact: "9999999999",
-            },
-            theme: {
-                color: "#61dafb",
-            },
-        };
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
     }
 
     return (
@@ -105,15 +79,15 @@ function Payment1() {
             </div>
 
             {/* Heading */}
-            <div className="w-full flex justify-center mt-20">
-                <h2 className="text-white font-bold text-2xl w-[970px]">Your Cart</h2>
+            <div className="w-full flex justify-center mt-10 sm:mt-20 px-4">
+                <h2 className="text-white font-bold text-xl sm:text-2xl w-full max-w-5xl">Your Cart</h2>
             </div>
 
             {/* Main Container */}
-            <div className="flex justify-center items-start gap-5 p-2 mb-70">
+            <div className="flex flex-col lg:flex-row justify-center items-start gap-5 px-4 max-w-5xl mx-auto mb-20">
 
                 {/* Left Div */}
-                <div className="bg-white w-150 rounded-2xl shadow-2xl p-2">
+                <div className="bg-white w-full lg:w-3/5 rounded-2xl shadow-2xl p-4 sm:p-6">
 
                     <h2 className="flex items-center gap-3 font-semibold p-2"><AiTwotoneDatabase size={25} /> Professional Plan</h2>
                     <h2 className="font-bold p-2">Period</h2>
