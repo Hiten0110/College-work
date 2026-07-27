@@ -25,7 +25,7 @@ const sendOTP = async (email, otp) => {
 
             <h1>${otp}</h1>
 
-            <p>This OTP is valid for 5 minutes.</p>
+            <p>This OTP is valid for 2 minutes.</p>
 
             <p>Please do not share this OTP with anyone.</p>
         `
