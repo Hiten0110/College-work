@@ -9,19 +9,23 @@
 // module.exports=connection
 
 
-const mongoose=require('mongoose')
-require("dotenv").config()
-const db_url = process.env.MONGODB_URL
+const mongoose = require('mongoose');
+require("dotenv").config();
 
+const rawUrl = process.env.MONGODB_URL || "";
+const db_url = rawUrl.replace(/^["']|["']$/g, "").trim();
 
-
-let connection=async()=>{
-    try{
-        await mongoose.connect(db_url)
-        console.log("Database connected succesfully")
-    }catch(err){
-        console.log({message: err})
+let connection = async () => {
+    try {
+        if (!db_url) {
+            console.error("Database connection error: MONGODB_URL is missing in environment variables!");
+            return;
+        }
+        await mongoose.connect(db_url);
+        console.log("Database connected successfully");
+    } catch (err) {
+        console.error("Database connection error:", err.message || err);
     }
-}
+};
 
-module.exports=connection
+module.exports = connection;
