@@ -301,9 +301,12 @@ exports.GetEmployees = async (req, res) => {
 };
 
 exports.forgotPassword = async (req, res) => {
+
     try {
-        const email = (req.body.email || "").trim();
-        const user = await User.findOne({ email: new RegExp(`^${email}$`, "i") });
+
+        const { email } = req.body;
+
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).json({
@@ -312,24 +315,29 @@ exports.forgotPassword = async (req, res) => {
         }
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
         user.otp = otp;
-        user.otpExpiry = Date.now() + 10 * 60 * 1000;
+
+        user.otpExpiry = Date.now() + 5 * 60 * 1000;
+
         await user.save();
 
-        // Dispatch OTP email asynchronously in background for instant response (< 200ms)
-        sendOTP(email, otp).catch((err) => {
-            console.error("Background OTP send error:", err);
-        });
+        await sendOTP(email, otp);
 
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
             message: "OTP sent successfully"
         });
+
     } catch (err) {
-        return res.status(500).json({
+
+        res.status(500).json({
+            success: false,
             message: err.message
         });
+
     }
+
 };
 
 exports.verifyOTP = async (req, res) => {
