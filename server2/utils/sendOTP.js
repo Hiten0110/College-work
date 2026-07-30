@@ -8,10 +8,9 @@ const getTransporter = () => {
     const pass = rawPass.replace(/[^a-zA-Z0-9]/g, "").trim();
 
     return nodemailer.createTransport({
-        service: "gmail",
         host: "smtp.gmail.com",
         port: 587,
-        secure: false, // TLS
+        secure: false, // TLS / STARTTLS
         auth: { user, pass },
         tls: {
             rejectUnauthorized: false

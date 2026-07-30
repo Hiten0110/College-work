@@ -302,8 +302,8 @@ exports.GetEmployees = async (req, res) => {
 
 exports.forgotPassword = async (req, res) => {
     try {
-        const { email } = req.body;
-        const user = await User.findOne({ email });
+        const email = (req.body.email || "").trim();
+        const user = await User.findOne({ email: new RegExp(`^${email}$`, "i") });
 
         if (!user) {
             return res.status(404).json({
