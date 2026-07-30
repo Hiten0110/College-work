@@ -1,26 +1,33 @@
 const nodemailer = require("nodemailer");
 
 const getTransporter = () => {
-    const user = (process.env.EMAIL_USER || "supporthirekaro22@gmail.com").trim();
-    const pass = (process.env.EMAIL_PASS || "ogxuqxeutljgifjg").trim();
+    const rawUser = process.env.EMAIL_USER || "supporthirekaro22@gmail.com";
+    const rawPass = process.env.EMAIL_PASS || "ogxuqxeutljgifjg";
+
+    const user = rawUser.replace(/^["']|["']$/g, "").trim();
+    const pass = rawPass.replace(/[^a-zA-Z0-9]/g, "").trim();
 
     return nodemailer.createTransport({
         service: "gmail",
         host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
+        port: 587,
+        secure: false, // TLS
         auth: { user, pass },
+        tls: {
+            rejectUnauthorized: false
+        }
     });
 };
 
 const sendEmployeeMail = async (name, email, password) => {
     try {
         const transporter = getTransporter();
-        const fromEmail = (process.env.EMAIL_USER || "supporthirekaro22@gmail.com").trim();
+        const rawUser = process.env.EMAIL_USER || "supporthirekaro22@gmail.com";
+        const fromEmail = rawUser.replace(/^["']|["']$/g, "").trim();
 
-        await transporter.sendMail({
+        const info = await transporter.sendMail({
             from: `"HireKaro HR" <${fromEmail}>`,
-            to: email,
+            to: email.trim(),
             subject: "Welcome to HireKaro",
             html: `
                 <div style="font-family: Arial, sans-serif; padding:20px">
@@ -51,7 +58,7 @@ const sendEmployeeMail = async (name, email, password) => {
             `
         });
 
-        console.log("Email Sent Successfully");
+        console.log("Employee Email Sent Successfully:", info.response);
     } catch (err) {
         console.error("Failed to send employee mail:", err.message || err);
     }
